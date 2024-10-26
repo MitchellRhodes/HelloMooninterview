@@ -17,10 +17,10 @@ import {createPgPool} from './createPgPool';
   await pool.query(`
     CREATE TABLE portfolios (
         id SERIAL PRIMARY KEY,
-        bitcoin  varchar(255),
-        solana  varchar(255),
-        ethereum  varchar(255),
-        dogecoin varchar(255)
+        bitcoin  decimal,
+        solana  decimal,
+        ethereum  decimal,
+        dogecoin decimal
     )
   `);
 
@@ -28,19 +28,16 @@ import {createPgPool} from './createPgPool';
    * transactions table
    * need for previous values of portfolio
    * need transaction date for display and ordering of time
-   * coin_in for the coin bought
-   * coin_out for the coin sold
-   * value in and out for the price being bought and sold
+    now take the coin type and the value of the new and old
    */
   await pool.query(`
     CREATE TABLE transactions (
         id SERIAL PRIMARY KEY,
         transaction_date timestamp default now(),
         portfolio_id integer,
-        coin_in varchar(255),
-        value_in varchar(255),
-        coin_out varchar(255),
-        value_out varchar(255)
+        coin_type varchar(255),
+        value_new varchar(255),
+        value_old varchar(255)
     )
   `);
 
